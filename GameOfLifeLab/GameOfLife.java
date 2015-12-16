@@ -53,9 +53,11 @@ public class GameOfLife
     private void populateGame()
     {
         // constants for the location of the three cells initially alive
-        final int X1 = 2, Y1 = 0;
-        final int X2 = 0, Y2 = 2;
-        final int X3 = 1, Y3 = 2;
+        final int X1 = 0, Y1 = 2;
+        final int X2 = 1, Y2 = 2;
+        final int X3 = 2, Y3 = 2;
+        final int X4 = 3, Y4 = 2;
+        
 
         // the grid of Actors that maintains the state of the game
         //  (alive cells contains actors; dead cells do not)
@@ -73,6 +75,10 @@ public class GameOfLife
         Rock rock3 = new Rock();
         Location loc3 = new Location(Y3, X3);
         grid.put(loc3, rock3);
+        
+        Rock rock3 = new Rock();
+        Location loc4 = new Location(Y4, X4);
+        grid.put(loc4, rock4);
     }
 
     /**
@@ -91,9 +97,33 @@ public class GameOfLife
         
         // create the grid, of the specified size, that contains Actors
         Grid<Actor> grid = world.getGrid();
-        
+        BoundedGrid<Actor> grid2 = new BoundedGrid<Actor>(ROWS,COLS);
         // insert magic here...
-        
+        for (int i=0; i<=ROWS;i++)
+        {
+            for(int e=0; e<=COLS;e++)
+            {
+                Actor cell = this.getActor(i,e);
+                Location cell1 = new Location(i,e);
+                if (getActor(i,e) != null)
+                ArrayList<Actor> neighbors = grid.getneigbors(cell1);
+                int count = neighbors.size();
+                    if (count == 2)
+                    {
+                        Critter newc = new Critter();
+                        Location locnew = new Location(i,e);
+                        grid2.put(locnew,critnew);
+                        
+                    }
+                }
+                if(getActor(i,e).getneighbors() == 3)
+                {
+                    Critter newc = new Critter();
+                        Location locnew = new Location(i,e);
+                        grid2.put(locnew,critnew);
+                }
+                world.setGrid(grid2);
+                world.show();
     }
     
     /**
